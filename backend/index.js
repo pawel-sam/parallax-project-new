@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const PORT = process.env.PORT || 5000;
-const mongoClient = new MongoClient(process.env.MONGODB_URI, {useNewUrlParser: true});
+const mongoClient = new MongoClient('mongodb://Alexferdinand:Rb2i8C!grMe$Bzn@ds113505.mlab.com:13505/heroku_wvvx3cb8', {useNewUrlParser: true, useUnifiedTopology: true});//process.env.MONGODB_URI
 
 const app = express();
 let dbCollections = {};
