@@ -19,3 +19,17 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Local development
+*.env
+*.dev
+.DS_Store
+*.iml
+.idea
+vcs.xml
+workspace.xml
+
+# Docker
+Dockerfile
+docker-compose.yml
+
