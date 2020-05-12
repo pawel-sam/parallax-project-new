@@ -1,5 +1,19 @@
 .DS_Store
 node_modules
+
+# Local development
+*.env
+*.dev
+.DS_Store
+*.iml
+.idea
+vcs.xml
+workspace.xml
+
+# Docker
+Dockerfile
+docker-compose.yml
+
 /dist
 
 # local env files
@@ -19,17 +33,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-# Local development
-*.env
-*.dev
-.DS_Store
-*.iml
-.idea
-vcs.xml
-workspace.xml
-
-# Docker
-Dockerfile
-docker-compose.yml
-
