@@ -14,7 +14,7 @@ workspace.xml
 Dockerfile
 docker-compose.yml
 
-/dist
+*/dist
 
 # local env files
 .env.local
