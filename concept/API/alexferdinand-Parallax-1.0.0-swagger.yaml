@@ -1,0 +1,509 @@
+swagger: '2.0'
+info:
+  description: Простой визуальный инструмент для генерации шкал и графиков с эффектом параллакса
+  version: 1.0.0
+  title: Parallax Project
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: vrabotu@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host:parallax.heroku.com
+# basePath: /v2
+tags:
+- name: page
+  description: Хранит указатель на уникальную страницу
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+- name: scale
+  description: Операции со шкалами
+- name: tag
+  description: Операции с тегами
+  externalDocs:
+    description: Внешней документации нет 
+    url: http://swagger.io
+- name: image
+  description: Операции с изображениями
+# schemes:
+# - http
+paths:
+  '/{hash}':
+    parameters:
+      - type: string
+        name: hash
+        in: path
+        required: true
+    get:
+      summary: Объект полностью  страницы со шкалами
+      tags: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              page:
+                $ref: '#/definitions/Page'
+              scales:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    scale:
+                      $ref: '#/definitions/Scale'
+                    tags:
+                      type: array
+                      items:
+                        $ref: '#/definitions/Tag'
+          headers: {}
+        '404':
+          description: Not Found
+          schema:
+            type: object
+          examples: {}
+          headers:
+            header-0:
+              type: string
+      operationId: get-hash
+      description: ''
+      parameters: []
+    tags: '-page'
+  '/scale/{id}':
+    parameters:
+      - type: string
+        name: id
+        in: path
+    get:
+      summary: Получение объекта шкалы по ID
+      tags: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Scale'
+      operationId: get-scale-pageId
+      description: Получение объекта шкалы по ID страницы
+  /:
+    get:
+      summary: Получение SPA
+      tags: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              '':
+                type: string
+          headers:
+            text/html:
+              type: string
+      operationId: get-spa
+      description: Get Single Page Application
+      parameters:
+        - type: string
+          in: header
+          name: 'token:sdsdsdke eufefevdvdvdvd'
+      security: []
+    parameters: []
+    post:
+      summary: ''
+      operationId: post
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              hash:
+                type: string
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 4
+                maxLength: 100
+                description: Название страницы с параллаксом
+              scales:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    startDate:
+                      type: string
+                      format: date-time
+                    endDate:
+                      type: string
+                      format: date-time
+                    step:
+                      type: integer
+                      format: int32
+                      minimum: 1
+                      maximum: 50
+                    subscript:
+                      type: string
+                    order:
+                      type: integer
+                      minimum: 1
+                      maximum: 10
+                      multipleOf: 1
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          annotation:
+                            type: string
+                          fullText:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                              - text
+                              - image
+                          position:
+                            type: integer
+                            description: Позиция тега на шкале
+                          imageIds:
+                            type: array
+                            items:
+                              $ref: '#/definitions/Image'
+                        required:
+                          - position
+          description: ''
+  /scale:
+    post:
+      summary: Создание новой шкалы
+      operationId: post-scale
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Идентификатор созданной в базе шкалы
+            required:
+              - id
+      description: Создает новую шкалу в базе данных
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              subscript:
+                type: string
+                description: Подпись шкалы
+                enum:
+                  - decade
+                  - year
+                  - month
+                  - day
+                  - week
+                  - hour
+                  - second
+              startDate:
+                type: string
+                format: date-time
+                description: Начальная дата шкалы
+              endDate:
+                type: string
+                format: date-time
+                description: Конечная дата шкалы
+              step:
+                type: integer
+                format: int32
+                minimum: 1
+                maximum: 10
+                description: Шаг шкалы
+              pageId:
+                type: string
+                format: uuid
+                description: 'Идентификатор страницы, если присутствует'
+              order:
+                type: integer
+                format: int32
+                description: Порядок следования шкалы на странице
+                minimum: 1
+                maximum: 10
+                multipleOf: 1
+            required:
+              - startDate
+              - endDate
+              - order
+          description: 'Объект асинхронного запроса на сервер, создающий шкалу на сервере'
+  '/tag/{scaleId}':
+    parameters:
+      - type: string
+        name: scaleId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+      operationId: get-tag-scaleId
+    post:
+      summary: ''
+      operationId: post-tag-scaleId
+      responses:
+        '200':
+          description: OK
+  '/image/{id}':
+    get:
+      summary: Получение изображения
+      tags: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Image'
+      operationId: get-image
+      description: Получение объекта изображения
+    post:
+      summary: Загрузка изображения
+      operationId: post-image
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Image'
+      description: Загрузка изображения на сервер
+      parameters:
+        - in: formData
+          type: file
+          name: filename
+          description: Имя загружаемого файла
+          required: true
+    parameters:
+      - type: string
+        name: id
+        in: path
+        required: true
+        description: ID изображения в базе
+        allowEmptyValue: true
+definitions:
+  Scale:
+    type: object
+    description: Объект хранит информацию о параметрах шкалы, отображаемой на странице
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: Идентификатор в базе данных
+      version:
+        type: integer
+        description: Версия применяемого API
+        format: int32
+      pageid:
+        $ref: '#/definitions/Page'
+      step:
+        type: integer
+        format: int32
+        description: Шаг с которым рисуются риски
+      subscript:
+        type: string
+        description: Размерность шкалы (годы, месяцы, часы, секунды и т. д.)
+        enum:
+          - decade
+          - year
+          - month
+          - day
+          - week
+          - hour
+          - second
+        default: year
+      endDate:
+        type: string
+        format: date-time
+        description: Начальное значение даты на шкале
+      startDate:
+        type: string
+        format: date-time
+        description: Конечное значение даты на шкале
+      order:
+        type: integer
+        format: int32
+        description: Отражает позицию шкалы в параллаксе (от 1 до 10)
+        minimum: 1
+        maximum: 10
+    required:
+      - id
+      - order
+    xml:
+      name: Scale
+  Image:
+    title: Image
+    type: object
+    description:  Объект хранящий информацию о загруженном изображении
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: Индентификатор базы данных
+      hash:
+        type: string
+        example: grXC47Gs3po76
+        description: Хэш который используется в качестве имени файла для хранения его на сервере
+      uploadDate:
+        type: string
+        format: date-time
+        description: Время загрузки файла
+      firstName:
+        type: string
+        minLength: 1
+        maxLength: 100
+        description: исходное имя файла
+      imgIconSrc:
+        type: string
+        format: uri
+        description: URL изображения в малом разрешении для тэга (в базовом отображении)
+      imgIconSize:
+        type: object
+        description: Размеры изображения-иконки в пикселях
+        properties:
+          width:
+            type: integer
+          height:
+            type: integer
+      fullImgSrc:
+        type: string
+        format: uri
+        description: URL полноразмерного изображения для полноэкранной версии тэга
+      fullImageSize:
+        type: object
+        description: Размеры большой версии изображения в пикселях
+        properties:
+          width:
+            type: integer
+            format: int32
+          height:
+            type: integer
+            format: int32
+      version:
+        type: integer
+        description: версия модели
+      tagId:
+        $ref: '#/definitions/Tag'
+    required:
+      - id
+      - hash
+      - uploadDate
+      - firstName
+    xml:
+      name: Image
+  Tag:
+    type: object
+    description: 'Объект, хранящий базовые характеристики тэга'
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: Идентификатор тэга в базе данных
+      annotation:
+        type: string
+        description: Краткая подпись к тэгу или подпись к картинке
+        minLength: 4
+        maxLength: 144
+      fullText:
+        type: string
+        description: Полный текст тэга
+        minLength: 145
+        maxLength: 1000
+      position:
+        type: integer
+        format: int16
+        description: Указывает на позицию тэга на шкале (смещение в rem)
+      type:
+        type: string
+        enum:
+          - image
+          - text
+        description: Тип тэга - текстовый или с изображением
+      version:
+        type: integer
+        format: int32
+        description: Версия модели
+      scaleId:
+        $ref: '#/definitions/Scale'
+      imageIds:
+        type: array
+        items:
+          $ref: ./Image.v1.yaml
+    required:
+      - annotation
+      - position
+      - type
+    xml:
+      name: Tag
+  Page:
+    type: object
+    title: Page
+    description: Страница с размещенными на ней шкалами, с эффектом параллакса.
+    properties:
+      id:
+        type: string
+        description: Идентификатор страницы базы данных
+        format: uuid
+      name:
+        type: string
+        description: Название страницы
+        minLength: 4
+        maxLength: 100
+      hash:
+        type: string
+        example: gH34klNsR
+        description: Хэш страницы, идентифицирующий ее в вебе, но не в базе данных
+      scaleIds:
+        type: array
+        items:
+          $ref: '#/definitions/Scale'
+      version:
+        description: Версия применяемого API
+        format: int32
+        type: integer
+      editDate:
+        type: string
+        format: date
+        description: Дата последнего редактирования или создания
+    required:
+      - id
+      - name
+      - hash
+      - editDate
+    xml:
+      name: Page
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /alexferdinand/Parallax/1.0.0
+schemes:
+ - https
+ - http
