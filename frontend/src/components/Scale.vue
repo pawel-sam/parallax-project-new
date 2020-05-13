@@ -1,7 +1,5 @@
 <template>
   <div>
-
-    <div class="container">
       <svg
         :width="xEnd"
         height="50%"
@@ -34,7 +32,6 @@
         </text>
 
       </svg>
-    </div>
   </div>
 </template>
 

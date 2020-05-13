@@ -123,7 +123,8 @@ export default {
 
 .relax {
   display: flex;
-align-items: flex-end;
+  align-items: flex-end;
+  width: fit-content;
 
   // width: 3000px;
   height: 300px;
