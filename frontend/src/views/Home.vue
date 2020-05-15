@@ -1,11 +1,13 @@
 <template>
-  <div class="container"  @wheel.prevent="wheelHandler">
+  <div class="parallax-container"  @wheel.prevent="wheelHandler">
+    
     <div 
-      class="relax"
+      class="relax parallax-layer-1"
       v-rellax="{
-      speed: 1,
+      speed: 12,
       vertical: false,
-      horizontal: true
+      horizontal: true,
+      wrapper: '.scroll-container'
     }"
     >
       <scale 
@@ -17,11 +19,12 @@
       
     </div>
     <div 
-      class="relax"
+      class="relax parallax-layer-2"
       v-rellax="{
       speed: 25,
       vertical: false,
-      horizontal: true
+      horizontal: true,
+      wrapper: '.scroll-container'
     }"
     >
       <scale 
@@ -84,11 +87,38 @@ export default {
 <style scoped lang="scss">
 
 .container {
-  height: 95vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  // height: 95vh;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+    height: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 100vw;
+    overflow: hidden;
+}
 
+.parallax-container {
+    height: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.parallax-layer-1 {
+    background-color: antiquewhite;
+    text-align: center;
+}
+
+.parallax-layer-2 {
+    background-color: cadetblue;
+    box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 .relax {
