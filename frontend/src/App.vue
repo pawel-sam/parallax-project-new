@@ -10,10 +10,42 @@
   <router-view/>
   </div>
      <div class="scroll-container" id="scroll-container">
-        <div class="scroll-dummy" id="scroll-dummy"></div>
+        <div class="scroll-dummy" id="scroll-dummy" :style="{width: dummyWidth }"></div>
     </div>
   </div>
 </template>
+
+
+<script>
+export default {
+  name: "App",
+
+data() {
+    return {
+      dummyWidth: 0
+      }
+  },
+
+
+  mounted() {
+    console.log (this.dummyWidth, this.$children)
+       //this.$children[0].$refs.scaleL.scaleLength * 2 + 'px'
+       this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
+     
+
+  },
+
+   computed: {
+     
+  },
+
+  methods: { },
+
+    
+}
+
+
+</script>
 
 <style lang="scss">
 body, html {
@@ -39,6 +71,7 @@ body, html {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 40% 60%;
+  overflow: hidden;
   background-image: linear-gradient(to right top, #c9b6a7, #c4bba7, #bcc1ab, #b3c6b3, #abcabf, #abc9be, #abc8bd, #abc7bc, #b2c1b0, #b8baa9, #bcb4a5, #bcaea5);
 }
 
@@ -53,7 +86,7 @@ body, html {
 }
 
 .scroll-dummy {
-    width: 180%;
+    //width: 180%;
     height: 100%;
 }
 
