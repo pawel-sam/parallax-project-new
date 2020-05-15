@@ -1,14 +1,15 @@
 <template>
-  <div class="parallax-container"  @wheel.prevent="wheelHandler">
+  <main class="parallax-container" :style="{width: scaleFullWidth}"  @wheel.prevent="wheelHandler">
     
     <div 
       class="relax parallax-layer-1"
       v-rellax="{
-      speed: 12,
+      speed: 1,
       vertical: false,
       horizontal: true,
       wrapper: '.scroll-container'
     }"
+    
     >
       <scale 
       :startDate="2010"
@@ -21,7 +22,7 @@
     <div 
       class="relax parallax-layer-2"
       v-rellax="{
-      speed: 25,
+      speed: 8,
       vertical: false,
       horizontal: true,
       wrapper: '.scroll-container'
@@ -32,8 +33,9 @@
       :endDate="2028"
       :step="1"
       :ratio="1"
+      ref = "scaleL"
     />
-    </div>
+    </div> 
 
     <!-- <scale 
       :startDate="2010"
@@ -41,7 +43,7 @@
       :step="1"
     /> -->
     
-  </div>
+  </main>
 </template>
 
 <script>
@@ -56,18 +58,31 @@ export default {
 
   data() {
     return {
-      scale: {}
-    }
+      scale: {},
+      scaleLength: 35
+      }
   },
 
   created() {
     this.getData()
   },
 
+  mounted() {
+    this.scaleLength = this.$refs.scaleL.scaleLength
+  },
+
+  computed: {
+    scaleFullWidth: function () {
+      return  this.scaleLength + 'px'
+    }
+  },
+
   methods: {
     wheelHandler(event) {
       // console.log(event)
       event.view.scrollBy({left:event.deltaY, top:0, behavior: 'smooth'})
+     // console.log(this.scaleFullWidth)
+      
     },
 
     async getData() {
@@ -79,8 +94,10 @@ export default {
       }
       catch (e) { console.error(e) }
     }
-  }
+
+    }
 }
+
 
 </script>
 
@@ -113,17 +130,20 @@ export default {
 .parallax-layer-1 {
     background-color: antiquewhite;
     text-align: center;
+    width: 100%;
 }
 
 .parallax-layer-2 {
     background-color: cadetblue;
     box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
+    width: 100%;
 }
 
 .relax {
   display: flex;
-align-items: flex-end;
+  align-items: flex-end;
+  //width: fit-content;
 
   // width: 3000px;
   height: 300px;
