@@ -118,8 +118,5 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  /* margin: 50px 100px; */
-}
 
 </style>
