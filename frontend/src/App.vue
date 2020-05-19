@@ -9,9 +9,6 @@
         </header>
   <router-view/>
   </div>
-     <!-- <div class="scroll-container" id="scroll-container">
-        <div class="scroll-dummy" id="scroll-dummy" :style="{width: dummyWidth }"></div>
-    </div> -->
   </div>
 </template>
 
@@ -28,8 +25,6 @@ data() {
 
 
   mounted() {
-      //console.log (this.dummyWidth, this.$children)
-       //this.$children[0].$refs.scaleL.scaleLength * 2 + 'px'
        this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
      
 

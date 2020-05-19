@@ -39,7 +39,8 @@ export default {
     return {
       scale: {},
       scaleLength: 35,
-      offsetParallax: 0
+      offsetParallax: 0,
+      tagsData: null
       }
   },
 
@@ -49,6 +50,13 @@ export default {
 
   mounted() {
     this.scaleLength = this.$refs.scaleL.scaleLength
+
+    // axios
+    //   .get('/')
+    //   .then(response => (this.tagsData = response))
+    //   .catch(error => console.log(error))
+
+    
   },
 
   computed: {
@@ -70,7 +78,8 @@ export default {
     async getData() {
       try {
         const result = (await axios.get('/')).data
-        if (result) { 
+        if (result) {
+          console.log(result) 
           this.scale = result
         }
       }
