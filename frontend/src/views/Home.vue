@@ -1,5 +1,5 @@
 <template>
-  <main class="parallax-container"  @wheel.prevent="wheelHandler">
+  <main class="parallax-container" @wheel.prevent="wheelScrollingOffset">
     <div class="parallax-layer-2 parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}">
       <scale 
       :startDate="2010"
@@ -17,7 +17,7 @@
       ref="scaleL"
     />
     </div>
-<scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax"/>
+<scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax" />
 
    
   </main>
@@ -39,7 +39,7 @@ export default {
     return {
       scale: {},
       scaleLength: 35,
-      offsetParallax: 0,
+      offsetParallax: 0
       }
   },
 
@@ -58,15 +58,13 @@ export default {
   },
 
   methods: {
-    wheelHandler(event) {
-      console.log(event.target.scrollBy)
-      event.view.scrollBy({left:event.deltaY, top:0, behavior: 'smooth'})
-      //console.log(this.scaleLength)
-    
-    },
 
     scrollParallax(data) {
       this.offsetParallax = data - 20;
+    },
+
+     wheelScrollingOffset(event) {
+     this.$root.$emit('wheelScroll', event.deltaY)
     },
 
     async getData() {
