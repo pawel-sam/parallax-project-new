@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
@@ -17,11 +18,12 @@ const mongoClient = new MongoClient('mongodb://Alexferdinand:Rb2i8C!grMe$Bzn@ds1
 
 const app = express();
 let dbCollections = {};
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')))
     .use(multer({storage:storageConfig}).single("tagImage"))
     .use(bodyParser.json())
-    .get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')))
+    .get('/', (req, res) => {res.sendFile(path.join(__dirname, 'public/index.html'))} )
     .post('/', addPage)
     .get('/:pageID', getPageById)
     .post('/:pageID', updatePageById)
