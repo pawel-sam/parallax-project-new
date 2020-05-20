@@ -18,7 +18,6 @@
         name: "Tag",
         props: {
             version: Number,
-            scaleId: Number,
         },
         data() {
             return {
