@@ -23,7 +23,7 @@
         data() {
             return {
                 annotation: "Первое погружение",
-                fullText: "Для того, чтобы приехать на море и пойти нырять с дайвцентром, лучше отучиться." +
+                fullText: "Это было незабываемо. Для того, чтобы нырять правильно, я специально учился." +
                 " Для рекреационного дайвинга, самого простого, есть 2 уровня - OWD (Open Water Diver)" +
                 " и AOWD (Advanced Open Water Diver). В принципе, и тот, и другой имеет право прийти и присоединиться к группе, " +
                 "но есть ограничения - OWD может погружаться до 18 метров, AOWD - до 30 метров. Ну и у AOWD подготовка пошире -" +
@@ -56,7 +56,17 @@
             openCard() {
                 this.isOpened = !this.isOpened;
 
-            }
+                const skale2 = document.querySelector(".parallax-layer-2");
+                const skale1 = document.querySelector(".parallax-layer-1");
+                if (this.isOpened) {
+                    skale1.style.opacity = "0.5";
+                    skale2.style.opacity = "0.5";
+                }
+                else if(!this.isOpened) {
+                    skale1.style.opacity=  "1";
+                    skale2.style.opacity=  "1";
+                }
+           }
         }
     }
 </script>
@@ -64,46 +74,64 @@
     .tag-flag {
         width: 120px;
         height: 120px;
-        background-image: url("img/tag.svg");
+        background-image: url("../img/tag.svg");
         position: absolute;
-        top: -50%;
+        z-index: 6;
+        top: 43%;
         left: 30%;
     }
 
+    .tag-flag > h1 {
+        font-size: 13px;
+        font-family: 'Helvetica', sans-serif;
+        font-weight: normal;
+        margin-left: 10px;
+        color: #EDF9F9;
+
+    }
+
+    .tag-flag > .photo {
+        background-image: url("../img/daivingmini.jpg");
+        background-size: cover;
+        margin-left: 17px;
+        border-radius: 5px;
+        margin-top: -5px;
+        width: 96px;
+        height: 55px;
+    }
+
     .tag-card {
-        width: 1300px;
-        height: 300px;
-        background: #abc7bc;
+        width: 80%;
+        height: 80%;
+        background: #7B7C7C;
         position: absolute;
-        z-index: 8;
-        top: -95%;
-        left: 3%;
+        padding-bottom: 20px;
+        z-index: 6;
+        top: 10%;
+        left: 10%;
+    }
+
+    .tag-card > h1 {
+        font-size: 30px;
+        font-family: 'Poiret One', cursive;
+        color: white;
     }
 
     .tag-card > .photo {
-        background-image: url("img/daiving.jpg");
-        width: 95%;
-        top: 10px;
-        left: 0;
-    }
-
-    .annotation {
-        font-size: 10px;
-        color: white;
-        margin-left: 10px;
-    }
-
-    .photo {
-        background-image: url("img/daivingmini.jpg");
+        background-image: url("../img/daiving.jpg");
         background-size: cover;
-        margin-left: 20px;
-        margin-top: 11px;
-        width: 90px;
-        height: 65px;
+        width: 95%;
+        height: 70%;
+        margin: 10px auto;
     }
+
     .fullText {
-        margin-top: 20px;
+        padding: 15px;
+        margin-top: 10px;
         text-align: center;
-        font-size: 16px;
+        font-size: 18px;
+        font-family: 'Helvetica', sans-serif;
+        color: #DFE5E5;
     }
 </style>
+
