@@ -54,6 +54,7 @@
             },
             openCard() {
                 this.isOpened = !this.isOpened;
+
                 const skale2 = document.querySelector(".parallax-layer-2");
                 const skale1 = document.querySelector(".parallax-layer-1");
                 if (this.isOpened) {
@@ -64,7 +65,7 @@
                     skale1.style.opacity=  "1";
                     skale2.style.opacity=  "1";
                 }
-            }
+           }
         }
     }
 </script>
@@ -132,3 +133,4 @@
         color: #DFE5E5;
     }
 </style>
+
