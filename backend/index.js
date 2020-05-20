@@ -4,14 +4,23 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const multer  = require("multer");
+const storageConfig = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, './public/images/');
+    },
+    filename: (req, file, cb) =>{
+        cb(null, file.originalname + "-" + Date.now());
+    }
+});
 const PORT = process.env.PORT || 5000;
-const mongoClient = new MongoClient('mongodb://Alexferdinand:Rb2i8C!grMe$Bzn@ds113505.mlab.com:13505/heroku_wvvx3cb8', {useNewUrlParser: true, useUnifiedTopology: true});//process.env.MONGODB_URI
-
+const mongoClient = new MongoClient(process.env.MONGODB_URI, {useNewUrlParser: true});
 const app = express();
 let dbCollections = {};
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')))
+    .use(multer({storage:storageConfig}).single("tagImage"))
     .use(bodyParser.json())
     .get('/', (req, res) => {res.sendFile(path.join(__dirname, 'public/index.html'))} )
     .post('/', addPage)
@@ -141,14 +150,11 @@ function addTag(req, res) {
     });
 }
 
-function uploadFile(req, res) {
-    console.log('At "uploadFile"');
-    const file = req.body;
-    dbCollections.images.insertOne(file, function (err, result) {
-        if (err) {
-            res.send({'error': 'An error has occurred'});
-        } else {
-            res.send(result);
-        }
-    });
+function uploadFile(req, res, next) {
+    let filedata = req.file;
+    if(!filedata) {
+        res.send("Ошибка при загрузке файла");
+    } else {
+        res.send("Файл загружен");
+    }
 }

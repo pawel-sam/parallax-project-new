@@ -1,7 +1,13 @@
 <template>
-  <main class="parallax-container" @wheel.prevent="wheelScrollingOffset">
+  <main class="parallax-container"  @wheel.prevent="wheelScrollingOffset">
+    <tag
+            :scaleId="id"
+            :version="1.0">
+
+    </tag>
+
     <div class="parallax-layer-2 parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}">
-      <scale 
+      <scale
       :startDate="2010"
       :endDate="2028"
       :step="1"
@@ -9,7 +15,7 @@
     />
     </div>
     <div class="parallax-layer-1 parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
-      <scale 
+      <scale
       :startDate="2010"
       :endDate="2028"
       :step="1"
@@ -18,8 +24,16 @@
     />
     </div>
 <scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax" />
+    <div class="parallax-layer-2-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
+      <tag
+              :version = 1
+              :scaleId = 2
+      />
+    </div>
+    <div class="parallax-layer-1-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"></div>
+<scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax"/>
 
-   
+
   </main>
 </template>
 
@@ -27,12 +41,13 @@
 import axios from 'axios'
 import Scale from '@/components/Scale'
 import Scroller from '@/components/Scroller'
-
+import Tag from '@/components/Tag'
 export default {
   name: "Home",
   components: {
     Scale,
-    Scroller
+    Scroller,
+      Tag
   },
 
   data() {
@@ -56,7 +71,7 @@ export default {
     //   .then(response => (this.tagsData = response))
     //   .catch(error => console.log(error))
 
-    
+
   },
 
   computed: {
@@ -66,6 +81,12 @@ export default {
   },
 
   methods: {
+    wheelHandler(event) {
+      console.log(event.target.scrollBy)
+      event.view.scrollBy({left:event.deltaY, top:0, behavior: 'smooth'})
+      //console.log(this.scaleLength)
+
+    },
 
     scrollParallax(data) {
       this.offsetParallax = data - 20;
@@ -79,7 +100,7 @@ export default {
       try {
         const result = (await axios.get('/')).data
         if (result) {
-          console.log(result) 
+          console.log(result)
           this.scale = result
         }
       }
@@ -114,7 +135,8 @@ export default {
 
 
 .parallax-layer-2 {
-    background-color: cadetblue;
+  background-image: url("../img/skale.svg");
+  background-size: cover;
 }
 
 .parallax-layer-2 div {
@@ -123,7 +145,8 @@ export default {
 }
 
 .parallax-layer-1 {
-    background-color: antiquewhite;
+  background-image: url("../img/skale2.svg");
+  background-size: cover;
     box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
 }
 </style>
