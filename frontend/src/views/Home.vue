@@ -25,10 +25,10 @@
     </div>
 <scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax" />
     <div class="parallax-layer-2-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
-      <tag
+       <tag
               :version = 1
               :scaleId = 2
-      />
+      /> 
     </div>
     <div class="parallax-layer-1-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"></div>
 <scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax"/>
@@ -47,7 +47,7 @@ export default {
   components: {
     Scale,
     Scroller,
-      Tag
+    Tag
   },
 
   data() {
@@ -60,7 +60,7 @@ export default {
   },
 
   created() {
-    this.getData()
+    //this.getData()
   },
 
   mounted() {
