@@ -20,6 +20,7 @@ export default {
 
  methods: {
   dummyOffset() {
+    console.log(document.getElementById('scroll-dummy').getBoundingClientRect().left)
       this.$emit('offsetX', document.getElementById('scroll-dummy').getBoundingClientRect().left)
     }
     },

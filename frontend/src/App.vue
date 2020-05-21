@@ -19,16 +19,16 @@
 
         data() {
             return {
-                dummyWidth: 0
+                //dummyWidth: 0
             }
         },
 
 
-        mounted() {
-            this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
+        // mounted() {
+        //     this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
 
 
-        },
+        // },
 
         computed: {},
 
