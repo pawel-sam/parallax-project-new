@@ -33,9 +33,6 @@ data() {
   
   methods: { },
 
-        methods: {},
-
-
     }
 
 
