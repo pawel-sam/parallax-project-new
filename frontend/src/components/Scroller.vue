@@ -1,5 +1,5 @@
 <template>
-    <div class="scroll-container" id="scroll-container"  @scroll.prevent="dummyOffset" @wheelScroll="aha">
+    <div class="scroll-container" id="scroll-container"  @scroll.prevent="dummyOffset">
         <div  class="scroll-dummy" ref="scrollDummy" :style="{width: scrollDummyWidth + 'px'}"></div>
     </div>
 </template>
