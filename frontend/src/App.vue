@@ -17,10 +17,7 @@
 export default {
   name: "App",
 
-html {
-  font-size: 100%;
 }
-
 </script>
 
 <style lang="scss">
@@ -58,9 +55,5 @@ html {
         font-size: 40px;
     }
 
-    .scroll-dummy {
-        //width: 180%;
-        height: 100%;
-    }
 
 </style>
