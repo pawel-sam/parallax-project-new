@@ -9,6 +9,7 @@ node_modules
 .idea
 vcs.xml
 workspace.xml
+.vscode
 
 # Docker
 Dockerfile
