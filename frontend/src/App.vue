@@ -17,27 +17,9 @@
 export default {
   name: "App",
 
-data() {
-    return {
-      //dummyWidth: 0
-      }
-  },
-  
-  
-
-
-        // mounted() {
-        //     this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
-
-
-  
-  methods: { },
-
-        methods: {},
-
-
-    }
-
+html {
+  font-size: 100%;
+}
 
 </script>
 

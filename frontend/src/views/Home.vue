@@ -3,7 +3,6 @@
     <tag
             :scaleId="id"
             :version="1.0">
-
     </tag>
 
     <div class="parallax-layer-2 parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}">
@@ -37,16 +36,20 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Scale from '@/components/Scale'
-import Scroller from '@/components/Scroller'
-import Tag from '@/components/Tag'
+import axios from 'axios';
+import Tag from '@/components/Tag';
+import Scale from "@/components/Scale";
+import Scroller from "@/components/Scroller";
+import Editor from "@/components/Editor";
+
 export default {
   name: "Home",
+
   components: {
     Scale,
     Scroller,
-    Tag
+    Tag,
+    Editor
   },
 
   data() {
@@ -55,7 +58,7 @@ export default {
       scaleLength: 35,
       offsetParallax: 0,
       tagsData: null
-      }
+    };
   },
 
   created() {
@@ -63,19 +66,16 @@ export default {
   },
 
   mounted() {
-    this.scaleLength = this.$refs.scaleL.scaleLength
-
+    this.scaleLength = this.$refs.scaleL.scaleLength;
     // axios
     //   .get('/')
     //   .then(response => (this.tagsData = response))
     //   .catch(error => console.log(error))
-
-
   },
 
   computed: {
-    scaleFullWidth: function () {
-      return  this.scaleLength + 20 + 'px'
+    scaleFullWidth: function() {
+      return this.scaleLength + 20 + "px";
     }
   },
 
@@ -91,47 +91,43 @@ export default {
       this.offsetParallax = data - 20;
     },
 
-     wheelScrollingOffset(event) {
-     this.$root.$emit('wheelScroll', event.deltaY)
+    wheelScrollingOffset(event) {
+      this.$root.$emit("wheelScroll", event.deltaY);
     },
 
     async getData() {
       try {
-        const result = (await axios.get('/')).data
+        const result = (await axios.get("/")).data;
         if (result) {
           console.log(result)
           this.scale = result
         }
+      } catch (e) {
+        console.error(e);
       }
-      catch (e) { console.error(e) }
     }
-
-    }
-}
-
-
+  }
+};
 </script>
 
 <style lang="scss">
-
 .parallax-container {
-    height: 100%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    width: 100vw;
-    overflow: hidden;
+  height: 100%;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .parallax-layer {
-    text-align: center;
-    height: 50%;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
+  text-align: center;
+  height: 50%;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
 }
-
 
 .parallax-layer-2 {
   background-image: url("../img/skale.svg");
