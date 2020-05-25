@@ -31,7 +31,7 @@
     <div class="parallax-layer-1-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"></div> -->
 
 <scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
-
+<editor/>
   </main>
 </template>
 
@@ -40,12 +40,16 @@
   import Scroller from '@/components/Scroller'
   import Tag from '@/components/Tag'
   import Scale from '@/components/Scale'
+  import Editor from '@/components/Editor'
+  
+
 export default {
   name: "Parallax",
     components: {
     Scale,
     Scroller,
-    Tag
+    Tag,
+    Editor
   },
 
   data() {

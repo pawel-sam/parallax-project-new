@@ -23,8 +23,14 @@ export default {
        document.getElementById('scroll-container').scrollBy({left: delta, top: 0, behavior: "smooth"})
     })
 
+   },
+
+  created() {
+     this.$emit('offsetX', this.$refs.scrollDummy.getBoundingClientRect().left)
+
 
    },
+
 
 }
 </script>

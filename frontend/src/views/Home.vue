@@ -1,7 +1,5 @@
 <template>
-
   <parallax/>
-
 </template>
 
 <script>
