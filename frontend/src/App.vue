@@ -17,25 +17,7 @@
 export default {
   name: "App",
 
-data() {
-    return {
-      //dummyWidth: 0
-      }
-  },
-  
-  
-
-
-        // mounted() {
-        //     this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
-
-
-  
-  methods: { },
-
-    }
-
-
+}
 </script>
 
 <style lang="scss">
@@ -73,9 +55,5 @@ data() {
         font-size: 40px;
     }
 
-    .scroll-dummy {
-        //width: 180%;
-        height: 100%;
-    }
 
 </style>

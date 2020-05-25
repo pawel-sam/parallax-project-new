@@ -1,6 +1,6 @@
 <template>
-    <div class="scroll-container" id="scroll-container"  @scroll.prevent="dummyOffset">
-        <div  class="scroll-dummy" id="scroll-dummy" :style="{width: scrollDummyWidth + 'px'}"></div>
+    <div class="scroll-container" id="scroll-container"  @scroll.prevent="dummyOffset" @wheelScroll="aha">
+        <div  class="scroll-dummy" ref="scrollDummy" :style="{width: scrollDummyWidth + 'px'}"></div>
     </div>
 </template>
 <script>
@@ -9,29 +9,22 @@ export default {
  name: "Scroller",
  props: {
     scrollDummyWidth: Number,
-    scrollValue: Number
- },
 
- data () {
-   return {
-     wheelScrollingOffsetValue: 0
-   }
  },
 
  methods: {
   dummyOffset() {
-    console.log(document.getElementById('scroll-dummy').getBoundingClientRect().left)
-      this.$emit('offsetX', document.getElementById('scroll-dummy').getBoundingClientRect().left)
+      this.$emit('offsetX', this.$refs.scrollDummy.getBoundingClientRect().left)
     }
     },
 
-   mounted() {
+  mounted() {
      this.$root.$on('wheelScroll', function (delta) {
-       this.wheelScrollingOffsetValue = delta
-        document.getElementById("scroll-container").scrollBy({left: delta, top: 0, behavior: "smooth"})
-     })
-  
-  },
+       document.getElementById('scroll-container').scrollBy({left: delta, top: 0, behavior: "smooth"})
+    })
+
+
+   },
 
 }
 </script>
@@ -47,7 +40,9 @@ export default {
 }
 
 .scroll-dummy {
+  position: absolute;
   left:0px;
+  height: 100%;
 }
 
 </style>

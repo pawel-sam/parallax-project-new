@@ -1,7 +1,7 @@
 <template>
     <main class="parallax-container"  @wheel.prevent="wheelScrollingOffset">
     <tag
-            :scaleId="id"
+            :scaleId="1235"
             :version="1.0">
     </tag>
 
@@ -22,18 +22,17 @@
       ref="scaleL"
     />
     </div>
-        <div class="parallax-layer-2-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
+     <!-- <div class="parallax-layer-2-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
        <tag
               :version = 1
               :scaleId = 2
       /> 
     </div>
-    <div class="parallax-layer-1-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"></div>
+    <div class="parallax-layer-1-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"></div> -->
 
-<scroller :scrollDummyWidth="scaleLength" v-on:offsetX = "scrollParallax" />
+<scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
 
   </main>
-
 </template>
 
 
@@ -54,7 +53,7 @@ export default {
       scale: {},
       scaleLength: 35,
       offsetParallax: 0,
-      tagsData: null
+      tagsData: null,
       }
   },
 
@@ -75,36 +74,16 @@ export default {
   },
 
   methods: {
-    wheelHandler(event) {
-      console.log(event.target.scrollBy)
-      event.view.scrollBy({left:event.deltaY, top:0, behavior: 'smooth'})
-      //console.log(this.scaleLength)
-
-    },
 
     scrollParallax(data) {
       this.offsetParallax = data - 20;
     },
 
      wheelScrollingOffset(event) {
-     this.$root.$emit('wheelScroll', event.deltaY)
+       this.$root.$emit('wheelScroll', event.deltaY)
     },
 
-    async getData() {
-      try {
-        const result = (await axios.get('/')).data
-        if (result) {
-          console.log(result)
-          this.scale = result
-        }
-      }
-      catch (e) { console.error(e) }
     }
-
-    }
-
-
-
 
 }
 </script>
@@ -143,6 +122,6 @@ export default {
 .parallax-layer-1 {
   background-image: url("../img/skale2.svg");
   background-size: cover;
-    box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
 }
 </style>
