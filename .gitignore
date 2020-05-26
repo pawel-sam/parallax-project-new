@@ -9,6 +9,11 @@ node_modules
 .idea
 vcs.xml
 workspace.xml
+<<<<<<< HEAD
+backend/public
+=======
+.vscode
+>>>>>>> develop
 
 # Docker
 Dockerfile
