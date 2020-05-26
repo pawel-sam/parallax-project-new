@@ -54,17 +54,6 @@
             },
             openCard() {
                 this.isOpened = !this.isOpened;
-
-                const skale2 = document.querySelector(".parallax-layer-2");
-                const skale1 = document.querySelector(".parallax-layer-1");
-                if (this.isOpened) {
-                    skale1.style.opacity = "0.5";
-                    skale2.style.opacity = "0.5";
-                }
-                else if(!this.isOpened) {
-                    skale1.style.opacity=  "1";
-                    skale2.style.opacity=  "1";
-                }
            }
         }
     }
@@ -73,7 +62,7 @@
     .tag-flag {
         width: 120px;
         height: 120px;
-        background-image: url("../img/tag.svg");
+        background-image: url("../images/tag.svg");
         position: absolute;
         z-index: 6;
         top: 43%;
@@ -90,7 +79,7 @@
     }
 
     .tag-flag > .photo {
-        background-image: url("../img/daivingmini.jpg");
+        background-image: url("../images/daivingmini.jpg");
         background-size: cover;
         margin-left: 17px;
         border-radius: 5px;
@@ -117,7 +106,7 @@
     }
 
     .tag-card > .photo {
-        background-image: url("../img/daiving.jpg");
+        background-image: url("../images/daiving.jpg");
         background-size: cover;
         width: 95%;
         height: 70%;
