@@ -13,31 +13,11 @@
 </template>
 
 
-<script>
-    export default {
-        name: "App",
+<script lang="js">
+export default {
+  name: "App",
 
-        data() {
-            return {
-                dummyWidth: 0
-            }
-        },
-
-
-        mounted() {
-            this.dummyWidth = this.$children[0].$refs.scaleL.scaleLength * 2.3 + 'px'
-
-
-        },
-
-        computed: {},
-
-        methods: {},
-
-
-    }
-
-
+}
 </script>
 
 <style lang="scss">
@@ -75,9 +55,5 @@
         font-size: 40px;
     }
 
-    .scroll-dummy {
-        //width: 180%;
-        height: 100%;
-    }
 
 </style>

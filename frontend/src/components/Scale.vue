@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="scale2">
         <svg
                 :width="xEnd"
                 height="50%"
@@ -56,7 +56,11 @@
         },
 
         created() {
+            console.log('created')
             this.calculateScale()
+        },
+        updated() {
+            console.log('updated');
         },
 
         methods: {
@@ -117,5 +121,4 @@
 </script>
 
 <style scoped>
-
 </style>
