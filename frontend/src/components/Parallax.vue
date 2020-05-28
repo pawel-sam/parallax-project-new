@@ -114,7 +114,7 @@ export default {
 
 
 .parallax-layer-2 {
-  background-image: url("../img/skale.svg");
+  background-image: url("../images/skale.svg");
   background-size: cover;
 }
 
@@ -124,7 +124,7 @@ export default {
 }
 
 .parallax-layer-1 {
-  background-image: url("../img/skale2.svg");
+  background-image: url("../images/skale2.svg");
   background-size: cover;
   box-shadow: 0 -20px 20px rgba(0, 0, 0, 0.5);
 }
