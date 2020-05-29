@@ -25,13 +25,6 @@ export default {
 
    },
 
-  created() {
-     this.$emit('offsetX', this.$refs.scrollDummy.getBoundingClientRect().left)
-
-
-   },
-
-
 }
 </script>
 <style scoped>
@@ -49,6 +42,7 @@ export default {
   position: absolute;
   left:0px;
   height: 100%;
+  min-height: 1px;
 }
 
 </style>
