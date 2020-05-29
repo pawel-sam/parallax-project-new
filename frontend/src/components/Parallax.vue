@@ -15,11 +15,11 @@
     </div>
     <div class="parallax-layer-1 parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
       <scale
+      v-on:returnScaleLength = "getScrollLength"
       :startDate="2010"
       :endDate="2028"
       :step="1"
       :ratio="1.0"
-      ref="scaleL"
     />
     </div>
      <!-- <div class="parallax-layer-2-tag parallax-layer" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
@@ -61,14 +61,8 @@ export default {
       }
   },
 
-    created() {
+  created() {
     //this.getData()
-  },
-
-  mounted() {
-    this.scaleLength = this.$refs.scaleL.scaleLength
-        console.log(this.scaleLength)
-
   },
 
   computed: {
@@ -78,6 +72,9 @@ export default {
   },
 
   methods: {
+    getScrollLength(length) {
+      this.scaleLength = length
+    },
 
     scrollParallax(data) {
       this.offsetParallax = data - 20;
