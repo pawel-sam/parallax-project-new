@@ -63,7 +63,7 @@
         width: 120px;
         height: 120px;
         background-image: url("../images/tag.svg");
-        position: absolute;
+        position: relative;
         z-index: 6;
         top: 43%;
         left: 30%;
