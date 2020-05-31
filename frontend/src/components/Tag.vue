@@ -59,13 +59,16 @@
     }
 </script>
 <style scoped>
+    .container {
+        margin-left: -15px;
+        z-index: 6;
+    }
     .tag-flag {
         width: 120px;
         height: 120px;
         background-image: url("../images/tag.svg");
-        position: absolute;
-        z-index: 6;
-        top: 43%;
+        position: relative;
+        top: 10%;
         left: 30%;
     }
 
@@ -94,7 +97,6 @@
         background: #7B7C7C;
         position: absolute;
         padding-bottom: 20px;
-        z-index: 6;
         top: 10%;
         left: 10%;
     }
