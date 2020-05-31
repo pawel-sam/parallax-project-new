@@ -23,7 +23,7 @@
         size="normal"
       ></ui-fab>
     </div>
-    <div class="editor__ui-share">
+    <!--div class="editor__ui-share">
       <ui-fab
         class="ui-share__button"
         @click="openModal('modal_share')"
@@ -34,7 +34,7 @@
         :disabled="disabled_share"
         size="normal"
       ></ui-fab>
-    </div>
+    </div-->
     <div class="editor__ui-modal">
       <ui-modal ref="modal_set" size="normal" title="Настройки" transition="scale-up">
         <form v-on:submit.prevent="submitSet">
@@ -86,7 +86,7 @@
       <ui-modal ref="modal_add" size="normal" title="Новое событие" transition="scale-up">
         <form v-on:submit.prevent="submitAdd">
           <div class="ui-modal__ui-tabs">
-            <ui-tabs raised ref="controlTabs">
+            <ui-tabs raised fullwidth ref="controlTabs">
               <ui-tab title="Название" id="tab1">
                 <div class="ui-tab__content">
                   <p>Привет! Для того, чтобы прикрепить событие в мире или из вашей жизни, укажите его название...</p>
@@ -149,26 +149,34 @@
               </ui-tab>
               <ui-tab title="Иллюстрация" id="tab3">
                 <div class="ui-tab__content">
-                  <p>Загрузите фотографию или добавьте ссылку</p>
-                  <div class="editor__ui-textbox">
-                    <ui-textbox
-                      floating-label
-                      iicon="link"
-                      label="Url"
-                      placeholder="Ссылка на картинку"
-                      help="Добавьте ссылку на картинку вашего события"
-                      v-model="imageUrl"
-                    ></ui-textbox>
-                  </div>
-                  <p>или загрузите вашу фотографию</p>
                   <div class="editor__ui-fileupload">
-                    <ui-fileupload
-                      accept="image/*"
-                      color="primary"
-                      :raised="true"
-                      name="file"
-                      @change="onFileChange"
-                    >Выберете картинку</ui-fileupload>
+                    <div
+                      :class="['ui-fileupload__box', dragging ? 'is-dragover' : '']"
+                      v-cloak
+                      @drop.prevent="addFile"
+                      @dragover.prevent
+                      @dragenter="dragging=true"
+                      @dragleave="dragging=false"
+                      @drop="dragging=false"
+                    >
+                      <ui-fileupload
+                        accept="image/*"
+                        color="secondary"
+                        :raised="false"
+                        name="file"
+                        class="ui-fileupload__button"
+                        @change="changeFile"
+                      >{{ fileName }}</ui-fileupload>
+                    </div>
+                    <ul class="ui-fileupload__files-list">
+                      <li v-bind:key="file.value" v-for="file in files">
+                        {{ file.name }} ({{ file.size | kb }} kb)
+                        <button
+                          @click="removeFile(file)"
+                          title="Удалить"
+                        >X</button>
+                      </li>
+                    </ul>
                     <div class="ui-fileupload__preview" v-if="filePreviewImage.length > 0">
                       <img
                         alt="filePreviewName"
@@ -234,15 +242,10 @@ export default {
 
   data() {
     return {
-      disabled_add: true,
+      disabled_add: false,
       disabled_share: true,
       startScale: "",
       endScale: "",
-      annotation: "",
-      fullText: "",
-      imageUrl: "",
-      filePreviewImage: "",
-      submitted: false,
       selectScale: "",
       scaleChoise: [
         {
@@ -253,7 +256,15 @@ export default {
           label: "В жизни",
           value: "life"
         }
-      ]
+      ],
+      annotation: "",
+      fullText: "",
+      files: [],
+      fileName: "Загрузите картинку",
+      dragging: false,
+      imageUrl: "",
+      filePreviewImage: "",
+      submitted: false
     };
   },
 
@@ -274,8 +285,43 @@ export default {
       this.$refs.controlTabs.setActiveTab(tab_id);
     },
 
-    onFileChange(files) {
+    onQueryChange(query) {
+      if (query.length === 0) {
+        return;
+      }
+      this.fetchRemoteResults(query);
+    },
+
+    addFile(e) {
+      let droppedFiles = e.dataTransfer.files;
+      if (!droppedFiles) {
+        return;
+      } else if (droppedFiles.length > 1) {
+        alert("1 photo please");
+      } else {
+        [...droppedFiles].forEach(f => {
+          this.files.pop(droppedFiles[0]);
+          this.files.push(f);
+        });
+        this.filePreviewImage = URL.createObjectURL(droppedFiles[0]);
+        this.fileName = droppedFiles[0].name;
+      }
+    },
+
+    changeFile(files) {
+      [...files].forEach(f => {
+        this.files.pop(files[0]);
+        this.files.push(f);
+      });
       this.filePreviewImage = URL.createObjectURL(files[0]);
+    },
+
+    removeFile(file) {
+      this.files = this.files.filter(f => {
+        return f != file;
+      });
+      this.filePreviewImage = "";
+      this.fileName = "Загрузите картинку";
     },
 
     submitSet() {
@@ -286,13 +332,6 @@ export default {
     submitAdd() {
       this.submitted = true;
       console.log(this.$data);
-    },
-
-    onQueryChange(query) {
-      if (query.length === 0) {
-        return;
-      }
-      this.fetchRemoteResults(query);
     }
   }
 };
@@ -386,10 +425,41 @@ export default {
 }
 
 .editor__ui-fileupload {
+  .ui-fileupload__box {
+    height: 100px;
+    background-color: #c8dadf;
+    position: relative;
+    display: flex;
+    align-items: center;
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset 0.15s linear,
+      background-color 0.15s linear;
+    transition: outline-offset 0.15s linear, background-color 0.15s linear;
+    &:hover {
+      opacity: 0.9;
+      -webkit-transition: opacity 0.15s linear;
+      transition: opacity 0.15s linear;
+    }
+  }
+  .ui-fileupload__box.is-dragover {
+    outline-offset: -2px;
+    outline-color: #c8dadf;
+    background-color: #fff;
+  }
+  .ui-fileupload__button {
+    margin: auto;
+  }
+  .ui-fileupload__files-list {
+    padding: 0;
+  }
+  .ui-fileupload__files-list li {
+    list-style: none;
+  }
   .ui-fileupload__preview {
     display: table;
     border: 1px solid #ddd;
-    margin-top: 8px;
+    margin: 0 auto;
     padding: 4px;
     line-height: 1;
   }
