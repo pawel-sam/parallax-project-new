@@ -1,5 +1,5 @@
 <template>
-<div class="parallax_container_level-1" :style="{width: transmittedWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
+<div class="parallax_container_level-1 layer_order" :style="{width: transmittedWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
    <tag 
              :scaleId="1235"
             :version="1.0"
@@ -19,7 +19,8 @@
   props: {
    version: Number,
    transmittedWidth: Number,
-   offsetParallax: Number
+   offsetParallax: Number,
+   order: Number
         },
 
   data() {
@@ -29,7 +30,7 @@
         },
 
   methods: {
-            calculatePosition() {
+            someMethod() {
                 //this.position;
             },
         }
@@ -37,6 +38,23 @@
 
 </script>
 <style >
+.parallax_container_level-1 {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.parallax_container_level-2 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.layer_order {
+  z-index: 6;
+}
 
 </style>
 

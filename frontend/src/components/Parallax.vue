@@ -1,6 +1,6 @@
 <template>
     <main class="parallax-container"  @wheel.passive="wheelScrollingOffset">
-    <TagLayer :transmittedWidth = "scaleFullWidth" :offsetParallax = "offsetParallax"/>
+    <TagLayer :transmittedWidth = "scaleFullWidth" :offsetParallax = "offsetParallax" :order = "1"/>
     <div class="parallax-layer-2 parallax-layer parallax_container_level-2" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}">
       <scale
       :startDate="2010"
@@ -92,28 +92,14 @@ export default {
     grid-template-columns: 100%;
 }
 
-.parallax_container_level-1 {
-  grid-row-start: 2;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 2;
-}
-
-.parallax_container_level-2 {
-  grid-row-start: 1;
-  grid-row-end: 2;
-  grid-column-start: 1;
-  grid-column-end: 2;
-}
-
 .parallax-layer {
     text-align: center;
     //height: 50%;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
+    z-index: 2;
 }
-
 
 .parallax-layer-2 {
   background-image: url("../images/skale.svg");
