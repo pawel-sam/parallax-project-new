@@ -56,11 +56,12 @@
         },
 
         created() {
-            console.log('created')
-            this.calculateScale()
+           this.calculateScale()
+           this.$emit('returnScaleLength', this.scaleLength)
         },
-        updated() {
-            console.log('updated');
+
+        mounted() {
+
         },
 
         methods: {
