@@ -3,16 +3,18 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const multer = require("multer");
+// const multer = require("multer");
+const webpack = require('webpack');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const router = require('./router');
-const storageConfig = multer.diskStorage({
-    destination: (req, file, cb) => {h
-        cb(null, './public/images/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname + "-" + Date.now());
-    }
-});
+// const storageConfig = multer.diskStorage({
+//     destination: (req, file, cb) => {h
+//         cb(null, './public/images/');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.originalname + "-" + Date.now());
+//     }
+// });
 const PORT = process.env.PORT || 5000;
 const app = express();
 mongoose.connect(process.env.MONGODB_URI);
@@ -23,7 +25,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(cors())
     .use(express.static(path.join(__dirname, 'public')))
     .use(router)
-    .use(multer({storage: storageConfig}).single("tagImage"))
+    // .use(multer({storage: storageConfig}).single("tagImage"))
     .use(bodyParser.json())
     .get('/', (req, res) => {
         res.sendFile(path.join(__dirname, 'public/index.html'))
