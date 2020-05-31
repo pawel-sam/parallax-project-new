@@ -1,5 +1,5 @@
 <template>
-    <div class="scale2">
+    <div>
         <svg
                 :width="xEnd"
                 height="50%"
