@@ -18,7 +18,7 @@
   },
   props: {
    version: Number,
-   transmittedWidth: Number,
+   transmittedWidth: String,
    offsetParallax: Number,
    order: Number
         },
@@ -43,6 +43,9 @@
   grid-row-end: 3;
   grid-column-start: 1;
   grid-column-end: 2;
+  display: flex;
+  align-items: flex-end;
+  
 }
 
 .parallax_container_level-2 {
