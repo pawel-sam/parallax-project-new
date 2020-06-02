@@ -93,10 +93,10 @@
     }
 
     .tag-card {
-        width: 80%;
-        height: 80%;
+        width: 80vw;
+        height: 80vh;
         background: #7B7C7C;
-        position: absolute;
+        position: fixed;
         padding-bottom: 20px;
         top: 10%;
         left: 10%;

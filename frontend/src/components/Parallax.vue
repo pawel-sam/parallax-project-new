@@ -86,7 +86,6 @@ export default {
     grid-column-start: 1;
     grid-column-end: 2;
     width: 100vw;
-    overflow: hidden;
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 100%;
