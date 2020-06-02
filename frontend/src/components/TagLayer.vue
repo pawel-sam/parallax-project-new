@@ -1,5 +1,5 @@
 <template>
-<div class="parallax_container_level-1 layer_order" :style="{width: transmittedWidth, left: offsetParallax + 'px'}">
+<div class="parallax_container_level-2 layer_order" :style="{width: transmittedWidth, left: offsetParallax + 'px'}">
    <tag 
              :scaleId="1235"
             :version="1.0"
@@ -42,11 +42,7 @@
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 1;
-  grid-column-end: 2;
-  display: flex;
-  align-items: flex-end;
-  position: relative;
-  
+  grid-column-end: 2;  
 }
 
 .parallax_container_level-2 {
@@ -57,7 +53,10 @@
 }
 
 .layer_order {
-  z-index: 6;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
 }
 
 </style>
