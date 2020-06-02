@@ -6,6 +6,6 @@ exports.getScales = function (req, res) {
 
 exports.addScale = function (req, res) {
     const scale = new Scale(req.body);
-    scale.save(function (err, savedScale) => res.json(err || savedScale));
+    scale.save((err, savedScale) => res.json(err || savedScale));
 }
 
