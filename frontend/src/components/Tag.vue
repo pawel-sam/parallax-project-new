@@ -63,8 +63,8 @@
         margin-left: -15px;
         z-index: 6;
         height: 50%;
-        position: relative;
-        transform: translateX(356px)
+        position: absolute;
+        left: 996px;
     }
     .tag-flag {
         width: 120px;
@@ -98,8 +98,8 @@
         background: #7B7C7C;
         position: fixed;
         padding-bottom: 20px;
-        top: -80vh;
-        left: 0%;
+        top: 10vh;
+        left: 10vw;
     }
 
     .tag-card > h1 {
