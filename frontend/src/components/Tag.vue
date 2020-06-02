@@ -98,8 +98,8 @@
         background: #7B7C7C;
         position: fixed;
         padding-bottom: 20px;
-        top: 10%;
-        left: 10%;
+        top: -80vh;
+        left: 0%;
     }
 
     .tag-card > h1 {
