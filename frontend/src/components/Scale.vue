@@ -56,7 +56,12 @@
         },
 
         created() {
-            this.calculateScale()
+           this.calculateScale()
+           this.$emit('returnScaleLength', this.scaleLength)
+        },
+
+        mounted() {
+
         },
 
         methods: {
