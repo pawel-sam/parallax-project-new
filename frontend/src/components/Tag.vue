@@ -18,7 +18,6 @@
         name: "Tag",
         props: {
             version: Number,
-            scaleId: Number,
         },
         data() {
             return {
@@ -55,29 +54,23 @@
             },
             openCard() {
                 this.isOpened = !this.isOpened;
-                const skale2 = document.querySelector(".parallax-layer-2");
-                const skale1 = document.querySelector(".parallax-layer-1");
-                if (this.isOpened) {
-                    skale1.style.opacity = "0.5";
-                    skale2.style.opacity = "0.5";
-                }
-                else if(!this.isOpened) {
-                    skale1.style.opacity=  "1";
-                    skale2.style.opacity=  "1";
-                }
-            }
+           }
         }
     }
 </script>
 <style scoped>
+    .container {
+        margin-left: -15px;
+        z-index: 6;
+        height: 50%;
+        position: absolute;
+        left: 996px;
+    }
     .tag-flag {
         width: 120px;
         height: 120px;
-        background-image: url("../img/tag.svg");
-        position: absolute;
-        z-index: 6;
-        top: 43%;
-        left: 30%;
+        background-image: url("../images/tag.svg");
+        margin-top: calc(-25% - 80px);
     }
 
     .tag-flag > h1 {
@@ -90,7 +83,7 @@
     }
 
     .tag-flag > .photo {
-        background-image: url("../img/daivingmini.jpg");
+        background-image: url("../images/daivingmini.jpg");
         background-size: cover;
         margin-left: 17px;
         border-radius: 5px;
@@ -100,14 +93,13 @@
     }
 
     .tag-card {
-        width: 80%;
-        height: 80%;
+        width: 80vw;
+        height: 80vh;
         background: #7B7C7C;
-        position: absolute;
+        position: fixed;
         padding-bottom: 20px;
-        z-index: 6;
-        top: 10%;
-        left: 10%;
+        top: 10vh;
+        left: 10vw;
     }
 
     .tag-card > h1 {
@@ -117,7 +109,7 @@
     }
 
     .tag-card > .photo {
-        background-image: url("../img/daiving.jpg");
+        background-image: url("../images/daiving.jpg");
         background-size: cover;
         width: 95%;
         height: 70%;
@@ -133,3 +125,4 @@
         color: #DFE5E5;
     }
 </style>
+
