@@ -23,7 +23,7 @@
         size="normal"
       ></ui-fab>
     </div>
-    <!--div class="editor__ui-share">
+    <div class="editor__ui-share">
       <ui-fab
         class="ui-share__button"
         @click="openModal('modal_share')"
@@ -34,7 +34,7 @@
         :disabled="disabled_share"
         size="normal"
       ></ui-fab>
-    </div-->
+    </div>
     <div class="editor__ui-modal">
       <ui-modal ref="modal_set" size="normal" title="Настройки" transition="scale-up">
         <form v-on:submit.prevent="submitSet">
@@ -163,8 +163,9 @@
                         accept="image/*"
                         color="secondary"
                         :raised="false"
-                        name="file"
+                        name="tagImage"
                         class="ui-fileupload__button"
+                        v-on:click="changeFile"
                         @change="changeFile"
                       >{{ fileName }}</ui-fileupload>
                     </div>
@@ -177,11 +178,11 @@
                         >X</button>
                       </li>
                     </ul>
-                    <div class="ui-fileupload__preview" v-if="filePreviewImage.length > 0">
+                    <div class="ui-fileupload__preview" v-if="tagImage.length > 0">
                       <img
                         alt="filePreviewName"
                         class="ui-fileupload__preview-image"
-                        :src="filePreviewImage"
+                        :src="tagImage"
                       />
                     </div>
                   </div>
@@ -205,7 +206,7 @@
                 <div class="ui-tab__content">
                   <div class="editor__tag-preview">
                     <figure class="left">
-                      <img :src="filePreviewImage" alt="annotation" />
+                      <img :src="tagImage" alt />
                       <figcaption>{{ annotation }}</figcaption>
                     </figure>
                     <p>{{ fullText }}</p>
@@ -230,6 +231,11 @@
           </div>
         </form>
       </ui-modal>
+    </div>
+    <div id="tagsarea">
+      <ul class="tagsarea__tags-list">
+        <li v-bind:key="tag.value" v-for="tag in tags">{{ tag.name }} {{ tag.image }}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -262,9 +268,9 @@ export default {
       files: [],
       fileName: "Загрузите картинку",
       dragging: false,
-      imageUrl: "",
-      filePreviewImage: "",
-      submitted: false
+      tagImage: "",
+      submitted: false,
+      tags: []
     };
   },
 
@@ -293,18 +299,18 @@ export default {
     },
 
     addFile(e) {
-      let droppedFiles = e.dataTransfer.files;
-      if (!droppedFiles) {
+      if (!e.dataTransfer.files) {
         return;
-      } else if (droppedFiles.length > 1) {
+      } else if (e.dataTransfer.files.length > 1) {
         alert("1 photo please");
       } else {
-        [...droppedFiles].forEach(f => {
-          this.files.pop(droppedFiles[0]);
+        let files = e.dataTransfer.files;
+        [...files].forEach(f => {
+          this.files.pop(files[0]);
           this.files.push(f);
+          this.tagImage = URL.createObjectURL(files[0]);
+          this.fileName = files[0].name;
         });
-        this.filePreviewImage = URL.createObjectURL(droppedFiles[0]);
-        this.fileName = droppedFiles[0].name;
       }
     },
 
@@ -312,26 +318,34 @@ export default {
       [...files].forEach(f => {
         this.files.pop(files[0]);
         this.files.push(f);
+        this.tagImage = URL.createObjectURL(files[0]);
+        this.fileName = files[0].name;
       });
-      this.filePreviewImage = URL.createObjectURL(files[0]);
     },
 
     removeFile(file) {
       this.files = this.files.filter(f => {
         return f != file;
       });
-      this.filePreviewImage = "";
+      this.tagImage = "";
       this.fileName = "Загрузите картинку";
     },
 
     submitSet() {
       this.disabled_add = false;
-      console.log(this.$data);
     },
 
     submitAdd() {
+      let tags = [
+        {
+          name: "В мире",
+          image: "world"
+        }
+      ];
       this.submitted = true;
-      console.log(this.$data);
+      [...tags].forEach(f => {
+        this.tags.push(f);
+      });
     }
   }
 };
@@ -422,6 +436,9 @@ export default {
   .ui-textbox {
     max-width: rem(600px);
   }
+  .is-disabled {
+    display: none;
+  }
 }
 
 .editor__ui-fileupload {
@@ -429,8 +446,9 @@ export default {
     height: 100px;
     background-color: #c8dadf;
     position: relative;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
+    display: grid;
+    z-index: 1;
     outline: 2px dashed #92b0b3;
     outline-offset: -10px;
     -webkit-transition: outline-offset 0.15s linear,
@@ -448,7 +466,11 @@ export default {
     background-color: #fff;
   }
   .ui-fileupload__button {
-    margin: auto;
+    display: contents;
+  }
+  .ui-fileupload__content {
+    z-index: -1;
+    text-transform: none;
   }
   .ui-fileupload__files-list {
     padding: 0;
