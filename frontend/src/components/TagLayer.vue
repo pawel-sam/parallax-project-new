@@ -1,5 +1,5 @@
 <template>
-<div class="parallax_container_level-1 layer_order" :style="{width: transmittedWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
+<div class="parallax_container_level-1 layer_order" :style="{width: transmittedWidth, left: offsetParallax + 'px'}">
    <tag 
              :scaleId="1235"
             :version="1.0"
@@ -45,6 +45,7 @@
   grid-column-end: 2;
   display: flex;
   align-items: flex-end;
+  position: relative;
   
 }
 
