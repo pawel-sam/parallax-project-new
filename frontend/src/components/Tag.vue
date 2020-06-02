@@ -62,14 +62,15 @@
     .container {
         margin-left: -15px;
         z-index: 6;
+        height: 50%;
+        position: relative;
+        transform: translateX(356px)
     }
     .tag-flag {
         width: 120px;
         height: 120px;
         background-image: url("../images/tag.svg");
-        position: relative;
-        top: 10%;
-        left: 30%;
+        margin-top: calc(-25% - 80px);
     }
 
     .tag-flag > h1 {
@@ -92,10 +93,10 @@
     }
 
     .tag-card {
-        width: 80%;
-        height: 80%;
+        width: 80vw;
+        height: 80vh;
         background: #7B7C7C;
-        position: absolute;
+        position: fixed;
         padding-bottom: 20px;
         top: 10%;
         left: 10%;
