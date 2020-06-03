@@ -34,7 +34,7 @@ export default {
     bottom: 0px;
     left: 0px;
     z-index: 100;
-    height: 2%;
+    height: 3%;
     width: 100%;
     overflow: auto;
 }

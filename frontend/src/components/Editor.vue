@@ -3,7 +3,7 @@
     <div class="editor__ui-add">
       <ui-fab
         class="ui-add__button"
-        @click="openModal('modal_add')"
+        @click="callModal('modal_add')"
         color="primary"
         icon="add"
         tooltip-position="left"
@@ -15,7 +15,7 @@
     <div class="editor__ui-set">
       <ui-fab
         class="ui-set__button"
-        @click="openModal('modal_set')"
+        @click="callModal('modal_set')"
         color="primary"
         icon="straighten"
         tooltip-position="left"
@@ -26,7 +26,7 @@
     <div class="editor__ui-share">
       <ui-fab
         class="ui-share__button"
-        @click="openModal('modal_share')"
+        @click="callModal('modal_share')"
         color="primary"
         icon="share"
         tooltip-position="left"
@@ -77,7 +77,7 @@
             class="ui-tab__next"
             buttonType="submit"
             color="primary"
-            @click="closeModal('modal_set')"
+            @click="callModal('modal_set')"
           >Создать</ui-button>
         </form>
       </ui-modal>
@@ -108,7 +108,7 @@
                   <ui-button
                     class="ui-tab__next"
                     buttonType="button"
-                    @click="selectNextTab('tab2')"
+                    @click="selectTab('tab2')"
                     color="primary"
                   >Далее</ui-button>
                 </div>
@@ -136,13 +136,13 @@
                   <ui-button
                     class="ui-tab__previous"
                     buttonType="button"
-                    @click="selectPrevTab('tab1')"
+                    @click="selectTab('tab1')"
                     color="primary"
                   >Назад</ui-button>
                   <ui-button
                     class="ui-tab__next"
                     buttonType="button"
-                    @click="selectNextTab('tab3')"
+                    @click="selectTab('tab3')"
                     color="primary"
                   >Далее</ui-button>
                 </div>
@@ -162,12 +162,13 @@
                       <ui-fileupload
                         accept="image/*"
                         color="secondary"
+                        :label="fileLabel"
                         :raised="false"
                         name="tagImage"
                         class="ui-fileupload__button"
                         v-on:click="changeFile"
                         @change="changeFile"
-                      >{{ fileName }}</ui-fileupload>
+                      ></ui-fileupload>
                     </div>
                     <ul class="ui-fileupload__files-list">
                       <li v-bind:key="file.value" v-for="file in files">
@@ -191,13 +192,13 @@
                   <ui-button
                     class="ui-tab__previous"
                     buttonType="button"
-                    @click="selectPrevTab('tab2')"
+                    @click="selectTab('tab2')"
                     color="primary"
                   >Назад</ui-button>
                   <ui-button
                     class="ui-tab__next"
                     buttonType="button"
-                    @click="selectNextTab('tab4')"
+                    @click="selectTab('tab4')"
                     color="primary"
                   >Далее</ui-button>
                 </div>
@@ -216,14 +217,14 @@
                   <ui-button
                     class="ui-tab__previous"
                     buttonType="button"
-                    @click="selectPrevTab('tab3')"
+                    @click="selectTab('tab3')"
                     color="primary"
                   >Назад</ui-button>
                   <ui-button
                     class="ui-tab__next"
                     buttonType="submit"
                     color="primary"
-                    @click="closeModal('modal_add')"
+                    @click="callModal('modal_add')"
                   >Создать</ui-button>
                 </div>
               </ui-tab>
@@ -232,11 +233,11 @@
         </form>
       </ui-modal>
     </div>
-    <div id="tagsarea">
+    <!--div id="tagsarea">
       <ul class="tagsarea__tags-list">
         <li v-bind:key="tag.value" v-for="tag in tags">{{ tag.name }} {{ tag.image }}</li>
       </ul>
-    </div>
+    </div-->
   </div>
 </template>
 
@@ -265,29 +266,26 @@ export default {
       ],
       annotation: "",
       fullText: "",
-      files: [],
-      fileName: "Загрузите картинку",
-      dragging: false,
       tagImage: "",
+      files: [],
+      fileLabel: "Загрузите картинку",
+      dragging: false,
       submitted: false,
       tags: []
     };
   },
 
   methods: {
-    openModal(ref) {
-      this.$refs[ref].open();
+    callModal(ref) {
+      let modal = this.$refs[ref];
+      if (modal.isOpen) {
+        modal.close();
+      } else {
+        modal.open();
+      }
     },
 
-    closeModal(ref) {
-      this.$refs[ref].close();
-    },
-
-    selectPrevTab(tab_id) {
-      this.$refs.controlTabs.setActiveTab(tab_id);
-    },
-
-    selectNextTab(tab_id) {
+    selectTab(tab_id) {
       this.$refs.controlTabs.setActiveTab(tab_id);
     },
 
@@ -305,12 +303,7 @@ export default {
         alert("1 photo please");
       } else {
         let files = e.dataTransfer.files;
-        [...files].forEach(f => {
-          this.files.pop(files[0]);
-          this.files.push(f);
-          this.tagImage = URL.createObjectURL(files[0]);
-          this.fileName = files[0].name;
-        });
+        this.changeFile(files);
       }
     },
 
@@ -319,7 +312,7 @@ export default {
         this.files.pop(files[0]);
         this.files.push(f);
         this.tagImage = URL.createObjectURL(files[0]);
-        this.fileName = files[0].name;
+        this.fileLabel = files[0].name;
       });
     },
 
@@ -328,7 +321,7 @@ export default {
         return f != file;
       });
       this.tagImage = "";
-      this.fileName = "Загрузите картинку";
+      this.fileLabel = "Загрузите картинку";
     },
 
     submitSet() {
