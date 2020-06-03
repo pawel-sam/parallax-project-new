@@ -8,4 +8,3 @@ exports.addScale = function (req, res) {
     const scale = new Scale(req.body);
     scale.save((err, savedScale) => res.json(err || savedScale));
 }
-

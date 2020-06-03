@@ -19,15 +19,15 @@ exports.uploadFile = function uploadFile(req, res, next) {
     // if (!filedata) {
     //     res.send("Ошибка при загрузке файла");
     // } else {
-            const files = imagemin.buffer(imageBuffer, {
-                plugins: [
-                    imageminJpegtran(),
-                    imageminPngquant({
-                        quality: '80'
-                    })
-                ]
-            }).then((buffer) => console.log(buffer));
+    const files = imagemin.buffer(imageBuffer, {
+        plugins: [
+            imageminJpegtran(),
+            imageminPngquant({
+                quality: '80'
+            })
+        ]
+    }).then((buffer) => console.log(buffer));
 
-            // res.send("Файл загружен");
+    // res.send("Файл загружен");
     // }
 }
