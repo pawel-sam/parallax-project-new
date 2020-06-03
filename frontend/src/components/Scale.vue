@@ -93,10 +93,10 @@
                     smallMarkQnt = this.step * markQnt
                 }
 
-                const shift = Math.ceil((this.xEnd - this.x0) * (1 - this.ratio) / 2)
-                this.x0 += shift
+                const shift = Math.ceil((this.xEnd - this.x0) * (1 - this.ratio) / 2);
+                this.x0 += shift;
 
-                const smallMArkStep = Math.floor(this.scaleLength / smallMarkQnt)
+                const smallMArkStep = Math.floor(this.scaleLength / smallMarkQnt);
                 let counter = 0;
                 for (let x = this.x0; x <= this.scaleLength; x += smallMArkStep) {
                     if (counter % bigMark === 0) {
