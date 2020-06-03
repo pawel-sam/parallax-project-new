@@ -6,7 +6,7 @@
       :startDate="2010"
       :endDate="2028"
       :step="1"
-      :ratio="0.95"
+      :ratio="1.0"
     />
     </div>
     <div class="parallax-layer-1 parallax-layer parallax_container_level-1" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
@@ -93,7 +93,6 @@ export default {
 
 .parallax-layer {
     text-align: center;
-    //height: 50%;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
@@ -106,7 +105,7 @@ export default {
 }
 
 .parallax-layer-2 div {
-  transform: scale(0.8, 0.8);
+  transform: scale(0.6, 0.6);
   transform-origin: left;
 }
 

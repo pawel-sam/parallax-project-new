@@ -1,5 +1,5 @@
 <template>
-<div class="parallax_container_level-2 layer_order" :style="{width: transmittedWidth, left: offsetParallax + 'px'}">
+<div class="parallax_container_level-2 layer_order" :style="{width: transmittedWidth, left: 0.6* offsetParallax + 'px'}">
    <tag 
              :scaleId="1235"
             :version="1.0"
