@@ -55,7 +55,7 @@ export default {
 
   computed: {
     scaleFullWidth: function () {
-      return  this.scaleLength + 20 + 'px'
+      return  this.scaleLength + 100 + 'px'
     }
   },
 
