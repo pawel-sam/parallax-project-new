@@ -10,8 +10,8 @@ npm-debug.log
 .idea
 vcs.xml
 workspace.xml
+package-lock.json
 
 # Docker
 Dockerfile
 docker-compose.yml
-
