@@ -3,8 +3,8 @@
         <div  class="scroll-dummy" ref="scrollDummy" :style="{width: scrollDummyWidth + 'px'}"></div>
     </div>
 </template>
-<script>
 
+<script>
 export default {
  name: "Scroller",
  props: {
@@ -27,6 +27,7 @@ export default {
 
 }
 </script>
+
 <style scoped>
 .scroll-container {
     position: absolute;
@@ -44,5 +45,4 @@ export default {
   height: 100%;
   min-height: 1px;
 }
-
 </style>
