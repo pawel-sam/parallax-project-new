@@ -6,7 +6,7 @@
       :startDate="2010"
       :endDate="2028"
       :step="1"
-      :subscipt = "year"
+      :ratio="1.0"
     />
     </div>
     <div class="parallax-layer-1 parallax-layer parallax_container_level-1" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
@@ -15,7 +15,7 @@
       :startDate="2010"
       :endDate="2028"
       :step="1"
-      :subscipt = "year"
+      :ratio="1.0"
     />
     </div>
 <scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
@@ -30,7 +30,6 @@
   import Scale from '@/components/Scale'
   import Editor from '@/components/Editor'
   
-
 export default {
   name: "Parallax",
     components: {
@@ -39,7 +38,6 @@ export default {
     TagLayer,
     Editor
   },
-
   data() {
     return {
       scale: {},
@@ -48,32 +46,25 @@ export default {
       tagsData: null,
       }
   },
-
   created() {
     //this.getData()
   },
-
   computed: {
     scaleFullWidth: function () {
-      return  this.scaleLength + 20 + 'px'
+      return  this.scaleLength + 100 +'px'
     }
   },
-
   methods: {
     getScrollLength(length) {
-      this.scaleLength = length
+      this.scaleLength = length + 100
     },
-
     scrollParallax(data) {
       this.offsetParallax = data - 20;
     },
-
      wheelScrollingOffset(event) {
        this.$root.$emit('wheelScroll', event.deltaY)
     },
-
     }
-
 }
 </script>
 
@@ -90,7 +81,6 @@ export default {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 100%;
 }
-
 .parallax-layer {
     text-align: center;
     display: flex;
@@ -98,17 +88,14 @@ export default {
     overflow: hidden;
     z-index: 2;
 }
-
 .parallax-layer-2 {
   background-image: url("../images/skale.svg");
   background-size: cover;
 }
-
 .parallax-layer-2 div {
   transform: scale(0.6, 0.6);
   transform-origin: left;
 }
-
 .parallax-layer-1 {
   background-image: url("../images/skale2.svg");
   background-size: cover;
