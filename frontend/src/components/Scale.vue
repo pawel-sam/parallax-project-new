@@ -1,5 +1,5 @@
 <template>
-    <div class="scale2">
+    <div>
         <svg
                 :width="xEnd"
                 height="50%"
@@ -56,11 +56,12 @@
         },
 
         created() {
-            console.log('created')
-            this.calculateScale()
+           this.calculateScale()
+           this.$emit('returnScaleLength', this.scaleLength)
         },
-        updated() {
-            console.log('updated');
+
+        mounted() {
+
         },
 
         methods: {
@@ -92,10 +93,10 @@
                     smallMarkQnt = this.step * markQnt
                 }
 
-                const shift = Math.ceil((this.xEnd - this.x0) * (1 - this.ratio) / 2)
-                this.x0 += shift
+                const shift = Math.ceil((this.xEnd - this.x0) * (1 - this.ratio) / 2);
+                this.x0 += shift;
 
-                const smallMArkStep = Math.floor(this.scaleLength / smallMarkQnt)
+                const smallMArkStep = Math.floor(this.scaleLength / smallMarkQnt);
                 let counter = 0;
                 for (let x = this.x0; x <= this.scaleLength; x += smallMArkStep) {
                     if (counter % bigMark === 0) {
