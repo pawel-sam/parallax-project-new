@@ -6,7 +6,7 @@
       :startDate="2010"
       :endDate="2028"
       :step="1"
-      :ratio="1.0"
+      :subscipt = "year"
     />
     </div>
     <div class="parallax-layer-1 parallax-layer parallax_container_level-1" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
@@ -15,7 +15,7 @@
       :startDate="2010"
       :endDate="2028"
       :step="1"
-      :ratio="1.0"
+      :subscipt = "year"
     />
     </div>
 <scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
@@ -55,7 +55,7 @@ export default {
 
   computed: {
     scaleFullWidth: function () {
-      return  this.scaleLength + 100 + 'px'
+      return  this.scaleLength + 20 + 'px'
     }
   },
 
