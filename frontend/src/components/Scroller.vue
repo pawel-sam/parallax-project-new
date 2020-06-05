@@ -3,8 +3,8 @@
         <div  class="scroll-dummy" ref="scrollDummy" :style="{width: scrollDummyWidth + 'px'}"></div>
     </div>
 </template>
-<script>
 
+<script>
 export default {
  name: "Scroller",
  props: {
@@ -20,20 +20,21 @@ export default {
 
   mounted() {
      this.$root.$on('wheelScroll', function (delta) {
-      document.getElementById('scroll-container').scrollBy({left: delta, top: 0, behavior: "auto"})
+       this.scrollBy({left: delta, top: 0, behavior: "smooth"})
     })
 
    },
 
 }
 </script>
+
 <style scoped>
 .scroll-container {
     position: absolute;
     bottom: 0px;
     left: 0px;
     z-index: 100;
-    height: 2%;
+    height: 3%;
     width: 100%;
     overflow: auto;
 }
@@ -44,5 +45,4 @@ export default {
   height: 100%;
   min-height: 1px;
 }
-
 </style>
