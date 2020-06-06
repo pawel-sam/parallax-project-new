@@ -53,23 +53,23 @@ export default {
 
   methods: {
     calculateScale() {
-      //console.log("0)", this.wpx, " px"); // убрать
+      //console.log("0)", this.wpx, " px"); // смотрим ширину экрана
       this.wpx = Math.floor(this.wpx / 100) * 100; // округление до сотен в меньшую сторону
 
       this.xEnd = this.wpx * 1.3 - 50;
       this.scaleLength = (this.xEnd - this.x0) * this.ratio;
-      //console.log("1)", this.wpx, this.xEnd, this.scaleLength, this.x0); // убрать
+      //console.log("1)", this.wpx, this.xEnd, this.scaleLength, this.x0); // находим предполагаемые конец шкалы и длину шкалы
 
       let minMarkStep = this.wpx / 10;
       if (minMarkStep < 130) {
         minMarkStep = 130;
       }
-      //console.log("2)", minMarkStep, "px это ~ 1/10 экрана"); // убрать
+      //console.log("2)", minMarkStep, "px это ~ 1/10 экрана"); // находим минимальный шаг между большими рисками (1 год), но не менее 130px
 
       let markQnt = (this.endDate - this.startDate) / this.step;
       let markStep = Math.floor(this.scaleLength / markQnt);
-      //console.log("3)", markQnt, "лет", markStep); // убрать
-      //console.log("4)", markStep, " >?< ", minMarkStep); // убрать
+      //console.log("3)", markQnt, "лет", markStep); // находим кол-во лет (кол-во шагов) и разбиваем длину предполагаемой шкалы на шаги
+      //console.log("4)", markStep, " >?< ", minMarkStep); // сравниваем шаг с минимальным шагом
 
       if (markStep < minMarkStep) {
         markStep = minMarkStep;
@@ -77,6 +77,8 @@ export default {
       this.scaleLength = markStep * markQnt;
       this.xEnd = this.scaleLength + this.x0;
       //console.log("5)", markQnt, " лет. Шкала:", this.scaleLength, "; конец: ", this.xEnd); // убрать
+      // шаг меньше минимального шага, то минимальный шаг умножаем на кол-во лет (шагов) и находим длину нашей реальной шкалы
+      // в итоге у нас есть начало шкалы (50px по умолчанию) + длина шкалы; так мы находим конец шкалы
 
       let sign = this.startDate;
       let bigMark = 12;
@@ -88,16 +90,16 @@ export default {
       if (this.step !== 1) {
         smallMarkQnt = this.step * markQnt;
       }
-      //console.log("6)", bigMark, "месяцев x ", markQnt, "лет = ", smallMarkQnt, " рисок"); // убрать
+      //console.log("6)", bigMark, "месяцев x ", markQnt, "лет = ", smallMarkQnt, " рисок"); // находим кол-во рисок на шкале
 
       const shift = ((this.xEnd - this.x0) * (1 - this.ratio)) / 2;
       this.x0 += shift;
       //console.log('7)', shift, this.x0); // убрать
 
       const smallMArkStep = Math.floor(this.scaleLength / smallMarkQnt);
-      //console.log("8)", smallMArkStep, "px - округленный шаг между мелкими рисками"); // убрать
+      //console.log("8)", smallMArkStep, "px - округленный шаг между мелкими рисками"); // находим и округляем расстояние между рисками
 
-      this.scaleLength = smallMArkStep * smallMarkQnt; // пересчитаем scaleLength
+      this.scaleLength = smallMArkStep * smallMarkQnt; // пересчитаем длину шкалы scaleLength
       //console.log("9)", this.scaleLength, "px новый размер самой шкалы = ", smallMArkStep, "px между рисками х ", smallMarkQnt, "кол-во рисок", " + 2*50 = ", this.scaleLength + 100, " scaleFullWidth"); // убрать
 
       this.xEnd = this.x0 + this.scaleLength; // пересчитаем конец шкалы
