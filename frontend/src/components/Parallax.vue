@@ -1,7 +1,7 @@
 <template>
-    <main class="parallax-container"  @wheel.passive="wheelScrollingOffset">
-    <TagLayer :transmittedWidth = "scaleFullWidth" :offsetParallax = "offsetParallax" :order = "1"/>
-    <div class="parallax-layer-2 parallax-layer parallax_container_level-2" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}">
+    <main class="parallax-container" @wheel.passive="wheelScrollingOffset">
+    <!-- <TagLayer :transmittedWidth = "scaleFullWidth" :offsetParallax = "offsetParallax" :order = "1"/>  :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}" -->
+    <div class="parallax-layer-2 parallax-layer parallax_container_level-2" >
       <scale
       :startDate="2010"
       :endDate="2028"
@@ -9,7 +9,7 @@
       :ratio="1.0"
     />
     </div>
-    <div class="parallax-layer-1 parallax-layer parallax_container_level-1" :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}">
+    <div class="parallax-layer-1 parallax-layer parallax_container_level-1">
       <scale
       v-on:returnScaleLength = "getScrollLength"
       :startDate="2010"
@@ -18,25 +18,25 @@
       :ratio="1.0"
     />
     </div>
-<scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
-<editor/>
+<!-- <scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
+<editor/> -->
   </main>
 </template>
 
 
 <script lang="js">
-  import Scroller from '@/components/Scroller'
-  import TagLayer from '@/components/TagLayer'
+  //import Scroller from '@/components/Scroller'
+  //import TagLayer from '@/components/TagLayer'
   import Scale from '@/components/Scale'
-  import Editor from '@/components/Editor'
+  //import Editor from '@/components/Editor'
   
 export default {
   name: "Parallax",
     components: {
     Scale,
-    Scroller,
-    TagLayer,
-    Editor
+    //Scroller,
+    //TagLayer,
+    //Editor
   },
   data() {
     return {
@@ -61,9 +61,9 @@ export default {
     scrollParallax(data) {
       this.offsetParallax = data - 20;
     },
-     wheelScrollingOffset(event) {
-       this.$root.$emit('wheelScroll', event.deltaY)
-    },
+    //  wheelScrollingOffset(event) {
+    //    this.$root.$emit('wheelScroll', event.deltaY)
+    // },
     }
 }
 </script>
@@ -71,31 +71,38 @@ export default {
 <style lang="scss">
    
 .parallax-container {
-    height: 100%;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    width: 100vw;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 100%;
+  min-width: 100%;
 }
+
 .parallax-layer {
-    text-align: center;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    z-index: 2;
+  height: 30%;
+  min-width: 100%;
 }
+
+.parallax_container_level-1 {
+  position: absolute;
+  left:0;
+  top: 70%;
+}
+
+.parallax_container_level-2 {
+  position: fixed;
+  left:0;
+  top:40%;
+}
+
+
+
 .parallax-layer-2 {
   background-image: url("../images/skale.svg");
   background-size: cover;
 }
-.parallax-layer-2 div {
-  transform: scale(0.6, 0.6);
-  transform-origin: left;
-}
+
+// .parallax-layer-2 div {
+//   transform: scale(0.6, 0.6);
+//   transform-origin: left;
+// }
+
 .parallax-layer-1 {
   background-image: url("../images/skale2.svg");
   background-size: cover;
