@@ -1,22 +1,23 @@
 <template>
-    <main class="parallax-container" @wheel.passive="wheelScrollingOffset">
-    <!-- <TagLayer :transmittedWidth = "scaleFullWidth" :offsetParallax = "offsetParallax" :order = "1"/>  :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax*0.6 + 'px)'}" -->
-    <div class="parallax-layer-2 parallax-layer parallax_container_level-2" >
-      <scale
-      :startDate="2010"
-      :endDate="2028"
-      :step="1"
-      :ratio="1.0"
-    />
+  <main class="parallax-container" @wheel.passive="wheelScrollingOffset">
+    <TagLayer :transmittedWidth="scaleFullWidth" :offsetParallax="offsetParallax" :order="1" />
+    <div
+      class="parallax-layer-2 parallax-layer parallax_container_level-2"
+      :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax * 0.6 + 'px)'}"
+    >
+      <scale :startDate="2010" :endDate="2028" :step="1" :ratio="1.0" />
     </div>
-    <div class="parallax-layer-1 parallax-layer parallax_container_level-1">
+    <div
+      class="parallax-layer-1 parallax-layer parallax_container_level-1"
+      :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"
+    >
       <scale
-      v-on:returnScaleLength = "getScrollLength"
-      :startDate="2010"
-      :endDate="2028"
-      :step="1"
-      :ratio="1.0"
-    />
+        v-on:returnScaleLength="getScrollLength"
+        :startDate="2010"
+        :endDate="2028"
+        :step="1"
+        :ratio="1.0"
+      />
     </div>
 <!-- <scroller :scrollDummyWidth="scaleLength"  v-on:offsetX = "scrollParallax" />
 <editor/> -->
@@ -41,9 +42,9 @@ export default {
   data() {
     return {
       scale: {},
-      scaleLength: 35,
+      scaleLength: 0,
       offsetParallax: 0,
-      tagsData: null,
+      tagsData: null
       }
   },
   created() {
@@ -51,7 +52,7 @@ export default {
   },
   computed: {
     scaleFullWidth: function () {
-      return  this.scaleLength + 100 +'px'
+      return  this.scaleLength + 'px'
     }
   },
   methods: {
@@ -59,7 +60,7 @@ export default {
       this.scaleLength = length + 100
     },
     scrollParallax(data) {
-      this.offsetParallax = data - 20;
+      this.offsetParallax = data - 0;
     },
     //  wheelScrollingOffset(event) {
     //    this.$root.$emit('wheelScroll', event.deltaY)
@@ -69,7 +70,6 @@ export default {
 </script>
 
 <style lang="scss">
-   
 .parallax-container {
   min-width: 100%;
 }

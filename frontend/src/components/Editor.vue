@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <!--div class="editor__ui-add">
+    <div class="editor__ui-add">
       <ui-fab
         class="ui-add__button"
         @click="callModal('modal_add')"
@@ -34,7 +34,7 @@
         :disabled="disabled_share"
         size="normal"
       ></ui-fab>
-    </div-->
+    </div>
     <div class="editor__ui-modal">
       <ui-modal ref="modal_set" size="normal" title="Настройки" transition="scale-up">
         <form v-on:submit.prevent="submitSet">
