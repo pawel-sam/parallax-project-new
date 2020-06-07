@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     imgSource: '',
-    wheelScroll: 0,
+    wheelScrollData: 0,
   },
   mutations: {
   },
