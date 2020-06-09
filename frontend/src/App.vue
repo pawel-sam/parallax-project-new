@@ -1,13 +1,20 @@
 <template>
     <div id="app" @wheel.passive="wheelScrolling">
             <router-view/>
+    <scroller/>
     </div>
 </template>
 
 
 <script lang="js">
+import Scroller from '@/components/Scroller'
+
 export default {
   name: "App",
+
+  components: {
+    Scroller,
+  },
 
   data () {
       return {
@@ -20,9 +27,8 @@ export default {
   },
 
   methods: {
-    wheelScrolling() {
-          this.wheelScroll = this.$store.state.wheelScroll
-          console.log(this.wheelScroll)
+    wheelScrolling(event) {
+          this.$store.commit('wheelScrollingDetect', event.deltaY)
       },
   }
 
