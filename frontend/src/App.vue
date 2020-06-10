@@ -1,26 +1,15 @@
 <template>
     <div id="app" @wheel.passive="wheelScrolling">
             <router-view/>
-    <scroller/>
     </div>
 </template>
 
 
 <script lang="js">
-import Scroller from '@/components/Scroller'
+
 
 export default {
   name: "App",
-
-  components: {
-    Scroller,
-  },
-
-  data () {
-      return {
-          wheelScroll: 0,
-      }
-  },
 
   computed: {
 
