@@ -6,23 +6,18 @@
 
 
 <script lang="js">
+
+
 export default {
   name: "App",
-
-  data () {
-      return {
-          wheelScroll: 0,
-      }
-  },
 
   computed: {
 
   },
 
   methods: {
-    wheelScrolling() {
-          this.wheelScroll = this.$store.state.wheelScroll
-          console.log(this.wheelScroll)
+    wheelScrolling(event) {
+          this.$store.commit('wheelScrollingDetect', event.deltaY)
       },
   }
 

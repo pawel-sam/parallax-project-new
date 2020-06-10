@@ -31,7 +31,8 @@ export default {
     startDate: Number,
     endDate: Number,
     step: Number,
-    ratio: Number
+    ratio: Number,
+    order: Number
   },
   data() {
     return {
@@ -46,7 +47,7 @@ export default {
 
   created() {
     this.calculateScale();
-    this.$emit("returnScaleLength", this.scaleLength);
+    this.$store.commit('setScaleLength', this.scaleLength);
   },
 
   mounted() {},
@@ -58,7 +59,7 @@ export default {
 
       this.xEnd = this.wpx * 1.3 - 50;
       this.scaleLength = (this.xEnd - this.x0) * this.ratio;
-      //console.log("1)", this.wpx, this.xEnd, this.scaleLength, this.x0); // находим предполагаемые конец шкалы и длину шкалы
+      //console.log("1)", this.wpx, this., this.scaleLength, this.x0); // находим предполагаемые конец шкалы и длину шкалы
 
       let minMarkStep = this.wpx / 10;
       if (minMarkStep < 130) {

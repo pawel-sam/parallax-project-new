@@ -7,8 +7,15 @@
 <script>
 export default {
   name: "Scroller",
-  props: {
-    scrollDummyWidth: Number
+  // props: {
+  //   scrollDummyWidth: Number
+  // },
+
+  data() {
+    return {
+      scrollDummyWidth: 0,
+      offsetParallax: 0,
+      }
   },
 
   methods: {
@@ -20,17 +27,26 @@ export default {
     }
   },
 
-  mounted() {
-    this.$root.$on("wheelScroll", function(delta) {
-      this.scrollBy({ left: delta, top: 0, behavior: "smooth" });
-    });
-  }
+   mounted() {
+      this.scrollDummyWidth = this.$store.state.scaleLength + 100
+      console.log(this.onWheelScrolling)
+      document.getElementById('scroll-container').scrollBy({ left: this.onWheelScrolling, top: 0, behavior: "smooth" });
+    },
+
+
+    computed: {
+      onWheelScrolling() {
+        // console.log(document.getElementById('scroll-container'))
+         return this.$store.state.wheelScrollDirection*10
+      },
+  },
+
 };
 </script>
 
 <style scoped>
 .scroll-container {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   z-index: 100;

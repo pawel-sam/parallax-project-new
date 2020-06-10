@@ -1,18 +1,10 @@
 <template>
-  <main class="parallax-container" @wheel.passive="wheelScrollingOffset">
-    <TagLayer :transmittedWidth="scaleFullWidth" :offsetParallax="offsetParallax" :order="1" />
-    <div
-      class="parallax-layer-2 parallax-layer parallax_container_level-2"
-      :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax * 0.6 + 'px)'}"
-    >
-      <scale :startDate="2010" :endDate="2028" :step="1" :ratio="1.0" />
-    </div>
-    <div
-      class="parallax-layer-1 parallax-layer parallax_container_level-1"
-      :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"
-    >
+  <main class="parallax-container" id = "parallax-container" >
+    <TagLayer :transmittedWidth="parallaxLayerFullWidth" :offsetParallax="offsetParallax" :order="1" />
+    <ParallaxLayer :order="2" :startDate="2010" :endDate="2028" :step="1" :ratio="1.0" :subscript="year"/>
+    <!-- <ParallaxLayer /> -->
+    <div  class="parallax-layer-1 parallax-layer parallax_container_level-1"  :style="{width: parallaxLayerFullWidth, left: parallaxScrollPosition + 'px'}" >
       <scale
-        v-on:returnScaleLength="getScrollLength"
         :startDate="2010"
         :endDate="2028"
         :step="1"
@@ -26,16 +18,13 @@
 
 
 <script lang="js">
-  //import Scroller from '@/components/Scroller'
-  //import TagLayer from '@/components/TagLayer'
-  import Scale from '@/components/Scale'
+  import ParallaxLayer from '@/components/ParallaxLayer'
   //import Editor from '@/components/Editor'
   
 export default {
   name: "Parallax",
     components: {
-    Scale,
-    //Scroller,
+    ParallaxLayer,
     //TagLayer,
     //Editor
   },
@@ -51,17 +40,27 @@ export default {
     //this.getData()
   },
   computed: {
-    scaleFullWidth: function () {
-      return  this.scaleLength + 'px'
-    }
+    parallaxLayerFullWidth: function () {
+      return  this.$store.state.scaleLength + 100 + 'px'
+    },
+    scrollParallaxBaseLayer() {
+      return this.controlOfLeftPosition(this.$store.state.parallaxScrollPosition*0.5)
+    },
+
+    scrollParallax2Layer() {
+      return this.controlOfLeftPosition(this.$store.state.parallaxScrollPosition*0.5*0.6)
+    },
+
   },
   methods: {
+    controlOfLeftPosition(position) {
+      return position >= 0 ?  0 : position
+    },
+
     getScrollLength(length) {
       this.scaleLength = length + 100
     },
-    scrollParallax(data) {
-      this.offsetParallax = data - 0;
-    },
+
     //  wheelScrollingOffset(event) {
     //    this.$root.$emit('wheelScroll', event.deltaY)
     // },
@@ -72,15 +71,18 @@ export default {
 <style lang="scss">
 .parallax-container {
   min-width: 100%;
+
 }
 
 .parallax-layer {
   height: 30%;
   min-width: 100%;
+  display: flex;
+  align-items: flex-end;
 }
 
 .parallax_container_level-1 {
-  position: absolute;
+  position: fixed;
   left:0;
   top: 70%;
 }
@@ -91,17 +93,10 @@ export default {
   top:40%;
 }
 
-
-
 .parallax-layer-2 {
   background-image: url("../images/skale.svg");
   background-size: cover;
 }
-
-// .parallax-layer-2 div {
-//   transform: scale(0.6, 0.6);
-//   transform-origin: left;
-// }
 
 .parallax-layer-1 {
   background-image: url("../images/skale2.svg");

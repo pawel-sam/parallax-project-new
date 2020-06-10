@@ -7,7 +7,6 @@
             </header>
         <parallax/>
         </div>
- 
 </template>
 
 <script>
