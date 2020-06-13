@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <div class="editor__ui-add">
+    <!-- <div class="editor__ui-add">
       <ui-fab
         class="ui-add__button"
         @click="callModal('modal_add')"
@@ -11,7 +11,7 @@
         :disabled="disabled_add"
         size="normal"
       ></ui-fab>
-    </div>
+    </div> -->
     <div class="editor__ui-set">
       <ui-fab
         class="ui-set__button"

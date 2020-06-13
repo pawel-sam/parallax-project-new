@@ -1,20 +1,20 @@
 <template>
   <main class="parallax-container" @wheel.passive="wheelScrollingOffset">
     <TagLayer :transmittedWidth="scaleFullWidth" :offsetParallax="offsetParallax" :order="1" />
-    <div
+    <!-- <div
       class="parallax-layer-2 parallax-layer parallax_container_level-2"
       :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax * 0.6 + 'px)'}"
     >
-      <scale :startDate="2010" :endDate="2028" :step="1" :ratio="1.0" />
-    </div>
+      <scale :startDate="startDate" :endDate="endDate" :step="1" :ratio="1.0" />
+    </div> -->
     <div
       class="parallax-layer-1 parallax-layer parallax_container_level-1"
       :style="{width: scaleFullWidth, transform: 'translateX(' + offsetParallax + 'px)'}"
     >
       <scale
         v-on:returnScaleLength="getScrollLength"
-        :startDate="2010"
-        :endDate="2028"
+        :startDate="startDate"
+        :endDate="endDate"
         :step="1"
         :ratio="1.0"
       />
@@ -44,7 +44,9 @@ export default {
       scale: {},
       scaleLength: 0,
       offsetParallax: 0,
-      tagsData: null
+      tagsData: null,
+      startDate: 2141,
+      endDate: 4228
       }
   },
   created() {
